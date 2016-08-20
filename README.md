@@ -5,3 +5,5 @@ pumping-regular
 
 A demonstration of the pumping lemma for regular languages.
 
+Play with it [here](https://jvoigtlaender.github.io/pumping-regular).
+
