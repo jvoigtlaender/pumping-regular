@@ -12,8 +12,8 @@ import Svg.Events exposing (onClick)
 import UndoList
 import Dict
 import Set
-import List.Extra
-import Maybe.Extra
+import List.Extra as List
+import Maybe.Extra as Maybe
 
 
 -- MODEL
@@ -303,7 +303,7 @@ view { past, present, future } =
                             node
                     )
                     (\id ->
-                        if id == current || Maybe.Extra.mapDefault False (\( _, v, _ ) -> List.member id v) muvw then
+                        if id == current || Maybe.mapDefault False (\( _, v, _ ) -> List.member id v) muvw then
                             bold
                         else
                             identity
@@ -321,7 +321,7 @@ view { past, present, future } =
                             ]
                        )
                     ++ [ div [] <|
-                            (if Maybe.Extra.isNothing muvw then
+                            (if Maybe.isNothing muvw then
                                 (if List.isEmpty past then
                                     []
                                  else
@@ -384,14 +384,14 @@ splitTrace trace =
         firstDuplicateState (Set.singleton initial) targets
             |> Maybe.map
                 (\looped ->
-                    case List.Extra.elemIndices looped (initial :: targets) of
+                    case List.elemIndices looped (initial :: targets) of
                         i :: j :: _ ->
                             let
                                 ( u, rest ) =
-                                    List.Extra.splitAt i trace
+                                    List.splitAt i trace
 
                                 ( v, w ) =
-                                    List.Extra.splitAt (j - i) rest
+                                    List.splitAt (j - i) rest
                             in
                                 ( u, v, w )
 
