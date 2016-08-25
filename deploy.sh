@@ -1,7 +1,5 @@
 rm -rf out || exit 0;
 
-npm install -g elm
-
 elm-package install --yes
 elm-make --yes
 

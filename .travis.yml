@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - '4.1'
+install:
+- npm install -g elm
 cache:
   directories:
   - elm-stuff/packages
