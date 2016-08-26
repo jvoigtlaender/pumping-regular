@@ -16,6 +16,15 @@ import List.Extra as List
 import Maybe.Extra as Maybe
 
 
+main =
+    beginnerProgram
+        { model = model
+        , view = view
+        , update = updateHelper update
+        }
+
+
+
 -- MODEL
 
 
@@ -28,7 +37,7 @@ model =
 
 
 
--- ACTION, UPDATE
+-- UPDATE
 
 
 type Msg
@@ -36,8 +45,8 @@ type Msg
     | Slider Float
 
 
-update action ({ current, trace } as model) =
-    case action of
+update msg ({ current, trace } as model) =
+    case msg of
         Click id ->
             let
                 ( _, ( from, to ) ) =
@@ -59,6 +68,33 @@ getSafe k d =
 
         Nothing ->
             Debug.crash "IMPOSSIBLE"
+
+
+updateHelper updater msg undolist =
+    case msg of
+        UndoList.Reset ->
+            UndoList.reset undolist
+
+        UndoList.Redo ->
+            UndoList.redo undolist
+
+        UndoList.Undo ->
+            UndoList.undo undolist
+
+        UndoList.Forget ->
+            UndoList.forget undolist
+
+        UndoList.New msg ->
+            case updater msg undolist.present of
+                Just model ->
+                    UndoList.new model undolist
+
+                Nothing ->
+                    undolist
+
+
+
+-- VIEW
 
 
 colored s ats =
@@ -93,10 +129,6 @@ automaton =
                 ]
     in
         { states = states, initial = initial, edges = edges }
-
-
-
--- VIEW
 
 
 graph colored bold =
@@ -469,34 +501,3 @@ renderTrace u ( pumped, v ) w =
             |> flip (List.foldl (addEach False endPumped))
                 (List.indexedMap (,) w)
             |> svg [ attribute "version" "1.1", viewBox "-50 -60 1350 120", attribute "height" "72", attribute "width" "810", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-
-
-main =
-    beginnerProgram
-        { model = model
-        , view = view
-        , update = updateHelper update
-        }
-
-
-updateHelper updater msg undolist =
-    case msg of
-        UndoList.Reset ->
-            UndoList.reset undolist
-
-        UndoList.Redo ->
-            UndoList.redo undolist
-
-        UndoList.Undo ->
-            UndoList.undo undolist
-
-        UndoList.Forget ->
-            UndoList.forget undolist
-
-        UndoList.New msg ->
-            case updater msg undolist.present of
-                Just model ->
-                    UndoList.new model undolist
-
-                Nothing ->
-                    undolist
