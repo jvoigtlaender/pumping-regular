@@ -360,14 +360,14 @@ view { past, present, future } =
                                     (if List.length past > 1 then
                                         [ Html.button
                                             [ Html.Events.onClick UndoList.Reset ]
-                                            [ text "Neu" ]
+                                            [ text "Anew" ]
                                         ]
                                      else
                                         []
                                     )
                                         ++ [ Html.button
                                                 [ Html.Events.onClick UndoList.Undo ]
-                                                [ text "Zurück" ]
+                                                [ text "Back" ]
                                            ]
                                 )
                                     ++ (if List.isEmpty future then
@@ -375,7 +375,7 @@ view { past, present, future } =
                                         else
                                             [ Html.button
                                                 [ Html.Events.onClick UndoList.Redo ]
-                                                [ text "Vor" ]
+                                                [ text "Again" ]
                                             ]
                                        )
                              else
@@ -388,7 +388,7 @@ view { past, present, future } =
                                     ]
                                 , Html.button
                                     [ Html.Events.onClick UndoList.Reset ]
-                                    [ text "Neu" ]
+                                    [ text "Anew" ]
                                 ]
                             )
                        ]
