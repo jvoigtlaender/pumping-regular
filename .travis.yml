@@ -1,11 +1,22 @@
 language: node_js
 install:
 - npm install -g elm
+- |
+  if [ ! -d libsysconfcpus/bin ];
+  then
+    git clone https://github.com/obmarg/libsysconfcpus.git; 
+    cd libsysconfcpus;
+    ./configure --prefix=$TRAVIS_BUILD_DIR/libsysconfcpus;
+    make && make install;
+    cd ..;
+  fi
 cache:
   directories:
   - elm-stuff/packages
   - elm-stuff/build-artifacts
+  - libsysconfcpus
 script: bash ./deploy.sh
 env:
   global:
-    secure: JlNmWOkmUOj3sLjqyfvxD7VkUT8TAQ9PXggOlhCMKR1ZYXRXmqbQ4H0Oaol0ZkOzwt+wWop6aKvxG2dQDLtuAI8qyrt2Le8qb3t8mm5YnRtRdAS66iGf/SgijAjUggpNhCHwbAOjZsBNV0NpBpavJsMqus1GTnWhvr+d9fQLHJ1YINWHejTgChdhxuzY/U0cYaYiccynWUSg5lmnW1MIJcdaYxDpWZwKM+xBwK5gpiMo/TspWR/wieobIOmHQWvB4vdbTFdpYxZ9AG6p2urPf5SK+222s1nD9RmKjORthhLzpt/t/fd+4E8HpwDvknibH0WRmftTqUFJqcAxkpbRs43pS+vAPZHi3482pieo3gJzwwAyIQGqPN0Y1AcJBnABET4mtWdFy3ukUfw8GyohXf+FnjfORJLHoA0CNmT0f1tEAIIZXET9jB44yZCplCZDTPZpKUvPW/NLY7/TKFUR7DhsM/nukF/L9Ozr6z+sijpWEFWbzKTz5WPgWcOqFUR8UYHHyo5p0mS6AmwZV2EQBg69J1abxUgyQNht+oclp/Aby1TqeNC1kl8kDy7g7odMS3Wdz03MEK2yXOuMY2158W6Z3sV8WaYNX8ibKdjl3od041YjuzS+5Ff8zWDh0GmdXstBi70pLG/c2J8usa/NQDN36QaX0t5EvqqJBTdRzQ4=
+    - CPUNUM=2
+    - secure: JlNmWOkmUOj3sLjqyfvxD7VkUT8TAQ9PXggOlhCMKR1ZYXRXmqbQ4H0Oaol0ZkOzwt+wWop6aKvxG2dQDLtuAI8qyrt2Le8qb3t8mm5YnRtRdAS66iGf/SgijAjUggpNhCHwbAOjZsBNV0NpBpavJsMqus1GTnWhvr+d9fQLHJ1YINWHejTgChdhxuzY/U0cYaYiccynWUSg5lmnW1MIJcdaYxDpWZwKM+xBwK5gpiMo/TspWR/wieobIOmHQWvB4vdbTFdpYxZ9AG6p2urPf5SK+222s1nD9RmKjORthhLzpt/t/fd+4E8HpwDvknibH0WRmftTqUFJqcAxkpbRs43pS+vAPZHi3482pieo3gJzwwAyIQGqPN0Y1AcJBnABET4mtWdFy3ukUfw8GyohXf+FnjfORJLHoA0CNmT0f1tEAIIZXET9jB44yZCplCZDTPZpKUvPW/NLY7/TKFUR7DhsM/nukF/L9Ozr6z+sijpWEFWbzKTz5WPgWcOqFUR8UYHHyo5p0mS6AmwZV2EQBg69J1abxUgyQNht+oclp/Aby1TqeNC1kl8kDy7g7odMS3Wdz03MEK2yXOuMY2158W6Z3sV8WaYNX8ibKdjl3od041YjuzS+5Ff8zWDh0GmdXstBi70pLG/c2J8usa/NQDN36QaX0t5EvqqJBTdRzQ4=
