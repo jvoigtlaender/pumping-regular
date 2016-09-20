@@ -7,7 +7,7 @@ mkdir out
 sysconfcpus/bin/sysconfcpus -n $CPUNUM elm-make Main.elm --output out/index.html --yes
 cd out
 
-git init
+git init --quiet
 git config user.name "Travis CI"
 git config user.email "jvoigtlaender@users.noreply.github.com"
 git add .
