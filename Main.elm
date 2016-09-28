@@ -335,7 +335,7 @@ view { past, present, future } =
                             node
                     )
                     (\id ->
-                        if id == current || Maybe.mapDefault False (\( _, v, _ ) -> List.member id v) muvw then
+                        if id == current || Maybe.unwrap False (\( _, v, _ ) -> List.member id v) muvw then
                             bold
                         else
                             identity
