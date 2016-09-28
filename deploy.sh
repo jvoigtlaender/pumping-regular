@@ -7,7 +7,7 @@ mkdir out
 sysconfcpus/bin/sysconfcpus -n $CPUNUM elm-make Main.elm --output out/index.html --yes
 cd out
 
-if [[ "$TRAVIS_PULL_REQUEST" != "false" && "$TRAVIS_BRANCH" == "master" ]];
+if [[ "$TRAVIS_PULL_REQUEST" == "false" ]];
 then
   git init --quiet;
   git config user.name "Travis CI";
