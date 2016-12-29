@@ -1,7 +1,6 @@
 module Main exposing (..)
 
-import Html.App exposing (beginnerProgram)
-import Html exposing (Html, div)
+import Html exposing (Html, beginnerProgram, div)
 import Html.Attributes exposing (href, class, style, attribute)
 import Html.Events
 import Material.Scheme
@@ -14,6 +13,7 @@ import Dict
 import Set
 import List.Extra as List
 import Maybe.Extra as Maybe
+import Tuple exposing (second)
 
 
 main =
@@ -400,7 +400,7 @@ splitTrace trace =
             automaton
 
         targets =
-            List.map (flip getSafe edges >> snd >> snd) trace
+            List.map (flip getSafe edges >> second >> second) trace
 
         firstDuplicateState seen rest =
             case rest of
